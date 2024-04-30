@@ -9,6 +9,10 @@ error_reporting(E_ALL);
 // require the autoload file
 require_once('vendor/autoload.php');
 
+//require the model
+require_once ('model/data-layer.php');
+
+
 // Instantiate the F3 Base Class
 $f3 = Base::instance();
 
@@ -77,6 +81,10 @@ $f3->route('GET|POST /order1', function($f3) {
         }
     }
 
+    // get data from the model
+    $meals = getMeals();
+    $f3->set('meals', $meals);
+
     // Render a view page
     $view = new Template();
     echo $view->render('views/order1.html');
@@ -111,6 +119,10 @@ $f3->route('GET|POST /order2', function($f3) {
             echo "<p>Validation errors</p>";
         }
     }
+
+    // get data from the model
+    $condiments = getCondiments();
+    $f3->set('meals', $condiments);
 
     // Render a view page
     $view = new Template();
